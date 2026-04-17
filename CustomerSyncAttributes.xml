@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SFCC → Salesforce Sales Cloud Customer Sync Accelerator
+  System Object Extension: CustomerSyncAttributes.xml
+  Import: Administration > Site Development > Import/Export
+-->
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+
+    <type-extension type-id="Profile">
+        <custom-attribute-definitions>
+
+            <!-- ── Salesforce IDs ─────────────────────────────── -->
+            <attribute-definition attribute-id="sfContactId">
+                <display-name xml:lang="x-default">SF Contact ID</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+                <externally-managed>true</externally-managed>
+                <min-length>0</min-length>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfLeadId">
+                <display-name xml:lang="x-default">SF Lead ID</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+                <externally-managed>true</externally-managed>
+            </attribute-definition>
+
+            <!-- ── Sync state ─────────────────────────────────── -->
+            <attribute-definition attribute-id="sfSyncStatus">
+                <display-name xml:lang="x-default">SF Sync Status</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+                <!-- Values: NOT_SYNCED | SYNCED | FAILED | SYNCED_CONVERTED -->
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfSyncFailed">
+                <display-name xml:lang="x-default">SF Sync Failed</display-name>
+                <type>boolean</type><mandatory-flag>false</mandatory-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfSyncError">
+                <display-name xml:lang="x-default">SF Sync Error</display-name>
+                <type>text</type><mandatory-flag>false</mandatory-flag>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfSyncAttempts">
+                <display-name xml:lang="x-default">SF Sync Attempts</display-name>
+                <type>int</type><mandatory-flag>false</mandatory-flag>
+                <default-value>0</default-value>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfLastSyncedAt">
+                <display-name xml:lang="x-default">SF Last Synced At</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+                <externally-managed>true</externally-managed>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="sfLastManualSyncAt">
+                <display-name xml:lang="x-default">SF Last Manual Sync At</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+            </attribute-definition>
+
+            <!-- ── CRM data written back from Salesforce ─────── -->
+            <attribute-definition attribute-id="crmSegment">
+                <display-name xml:lang="x-default">CRM Segment (from SF)</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+                <externally-managed>true</externally-managed>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="loyaltyTier">
+                <display-name xml:lang="x-default">Loyalty Tier</display-name>
+                <type>string</type><mandatory-flag>false</mandatory-flag>
+            </attribute-definition>
+
+            <attribute-definition attribute-id="newsletterOptIn">
+                <display-name xml:lang="x-default">Newsletter Opt-In</display-name>
+                <type>boolean</type><mandatory-flag>false</mandatory-flag>
+                <default-value>false</default-value>
+            </attribute-definition>
+
+        </custom-attribute-definitions>
+
+        <group-definitions>
+            <attribute-group group-id="salesCloudSync">
+                <display-name xml:lang="x-default">Salesforce Sales Cloud Sync</display-name>
+                <attribute attribute-id="sfContactId"/>
+                <attribute attribute-id="sfLeadId"/>
+                <attribute attribute-id="sfSyncStatus"/>
+                <attribute attribute-id="sfSyncFailed"/>
+                <attribute attribute-id="sfSyncError"/>
+                <attribute attribute-id="sfSyncAttempts"/>
+                <attribute attribute-id="sfLastSyncedAt"/>
+                <attribute attribute-id="sfLastManualSyncAt"/>
+                <attribute attribute-id="crmSegment"/>
+                <attribute attribute-id="loyaltyTier"/>
+                <attribute attribute-id="newsletterOptIn"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+</metadata>

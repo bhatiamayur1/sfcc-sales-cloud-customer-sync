@@ -1,0 +1,137 @@
+<!-- ╔══════════════════════════════════════════════════════════════╗
+     ║  SFCC → Salesforce Sales Cloud Customer Sync Accelerator    ║
+     ║  LWC: customerInsightsPanel.html                            ║
+     ║  Surfaces SFCC purchase intelligence on the Contact page    ║
+     ╚══════════════════════════════════════════════════════════════╝ -->
+<template>
+    <lightning-card icon-name="standard:customer_360" title="SFCC Commerce Insights">
+        <div class="slds-var-m-around_medium">
+
+            <!-- Loading -->
+            <template if:true={isLoading}>
+                <div class="slds-align_absolute-center slds-p-around_large">
+                    <lightning-spinner size="medium" alternative-text="Loading insights...">
+                    </lightning-spinner>
+                </div>
+            </template>
+
+            <template if:false={isLoading}>
+
+                <!-- No SFCC customer -->
+                <template if:false={hasSFCCCustomer}>
+                    <div class="slds-illustration slds-illustration_small">
+                        <lightning-icon icon-name="utility:disconnect" size="large"
+                            variant="warning" class="slds-var-m-bottom_small">
+                        </lightning-icon>
+                        <p class="slds-text-body_regular slds-text-color_weak">
+                            No SFCC customer number linked to this contact.
+                        </p>
+                    </div>
+                </template>
+
+                <template if:true={hasSFCCCustomer}>
+
+                    <!-- RFM Segment badge -->
+                    <div class="segment-banner slds-var-m-bottom_medium" data-segment={rfmSegment}>
+                        <span class="segment-label">CRM Segment</span>
+                        <span class="segment-value">{rfmSegment}</span>
+                        <span class="rfm-score">{rfmScore}</span>
+                    </div>
+
+                    <!-- KPI grid -->
+                    <div class="kpi-grid slds-var-m-bottom_large">
+                        <div class="kpi-card">
+                            <p class="kpi-label">Lifetime Value</p>
+                            <p class="kpi-value kpi-currency">{formattedLTV}</p>
+                        </div>
+                        <div class="kpi-card">
+                            <p class="kpi-label">Orders</p>
+                            <p class="kpi-value">{orderCount}</p>
+                        </div>
+                        <div class="kpi-card">
+                            <p class="kpi-label">Avg. Order</p>
+                            <p class="kpi-value kpi-currency">{formattedAOV}</p>
+                        </div>
+                        <div class="kpi-card">
+                            <p class="kpi-label">Last Order</p>
+                            <p class="kpi-value kpi-date">{lastOrderDate}</p>
+                        </div>
+                    </div>
+
+                    <!-- Product affinity tags -->
+                    <template if:true={hasAffinityTags}>
+                        <div class="affinity-section slds-var-m-bottom_medium">
+                            <p class="section-label">Product Affinity</p>
+                            <div class="tag-row">
+                                <template for:each={affinityTags} for:item="tag">
+                                    <lightning-badge key={tag.id}
+                                        label={tag.name}
+                                        class="affinity-tag">
+                                    </lightning-badge>
+                                </template>
+                            </div>
+                        </div>
+                    </template>
+
+                    <!-- Customer profile details -->
+                    <div class="profile-grid slds-var-m-bottom_medium">
+                        <div class="profile-row">
+                            <span class="profile-key">SFCC Customer No.</span>
+                            <span class="profile-val code">{sfccCustomerNo}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Site</span>
+                            <span class="profile-val">{sfccSiteId}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Loyalty Tier</span>
+                            <span class="profile-val">{loyaltyTier}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Registered</span>
+                            <span class="profile-val">{registeredAt}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Last Login</span>
+                            <span class="profile-val">{lastLogin}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Login Count</span>
+                            <span class="profile-val">{loginCount}</span>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">Newsletter Opt-in</span>
+                            <lightning-icon
+                                icon-name={newsletterIcon}
+                                variant={newsletterVariant}
+                                size="x-small"
+                                class="slds-var-m-left_xx-small">
+                            </lightning-icon>
+                        </div>
+                        <div class="profile-row">
+                            <span class="profile-key">High Value</span>
+                            <lightning-icon
+                                icon-name={highValueIcon}
+                                variant={highValueVariant}
+                                size="x-small"
+                                class="slds-var-m-left_xx-small">
+                            </lightning-icon>
+                        </div>
+                    </div>
+
+                    <!-- Link to SFCC storefront (deep link) -->
+                    <div class="footer-actions">
+                        <a href={sfccCustomerURL} target="_blank"
+                           class="slds-button slds-button_neutral slds-button_small">
+                            <lightning-icon icon-name="utility:new_window" size="x-small"
+                                class="slds-var-m-right_xx-small">
+                            </lightning-icon>
+                            View in SFCC Business Manager
+                        </a>
+                    </div>
+
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,29 @@
+{
+  "hooks": [
+    {
+      "name"       : "app.customer.created",
+      "script"     : "#!./cartridge/scripts/hooks/SalesCloudCustomerHooks",
+      "importName" : "afterCustomerCreated"
+    },
+    {
+      "name"       : "app.customer.updated",
+      "script"     : "#!./cartridge/scripts/hooks/SalesCloudCustomerHooks",
+      "importName" : "afterProfileUpdated"
+    },
+    {
+      "name"       : "app.customer.loggedIn",
+      "script"     : "#!./cartridge/scripts/hooks/SalesCloudCustomerHooks",
+      "importName" : "afterCustomerLogin"
+    },
+    {
+      "name"       : "app.customer.optedOut",
+      "script"     : "#!./cartridge/scripts/hooks/SalesCloudCustomerHooks",
+      "importName" : "afterEmailOptOut"
+    },
+    {
+      "name"       : "app.post.order",
+      "script"     : "#!./cartridge/scripts/hooks/SalesCloudCustomerHooks",
+      "importName" : "afterOrderPlaced"
+    }
+  ]
+}

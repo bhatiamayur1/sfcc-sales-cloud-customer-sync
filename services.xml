@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  SFCC → Salesforce Sales Cloud Customer Sync Accelerator
+  Business Manager Service Configuration
+  Import: Administration > Operations > Import/Export > Services
+-->
+<services xmlns="http://www.demandware.com/xml/impex/services/2014-11-06">
+
+  <service-definition service-id="salescloud.rest.auth">
+    <service-type>HTTP</service-type>
+    <enabled flag="true"/>
+    <log-prefix>SC_AUTH</log-prefix>
+    <communication-timeout-ms>10000</communication-timeout-ms>
+    <profile service-profile-id="salescloud.profile"/>
+    <credential service-credential-id="salescloud.rest.auth.credentials"/>
+  </service-definition>
+
+  <service-definition service-id="salescloud.rest.api">
+    <service-type>HTTP</service-type>
+    <enabled flag="true"/>
+    <log-prefix>SC_API</log-prefix>
+    <communication-timeout-ms>20000</communication-timeout-ms>
+    <profile service-profile-id="salescloud.profile"/>
+    <credential service-credential-id="salescloud.rest.api.credentials"/>
+  </service-definition>
+
+  <service-profile service-profile-id="salescloud.profile">
+    <rate-limit-enabled flag="true"/>
+    <calls-per-second>8</calls-per-second>
+    <cpu-time-threshold-ms>300</cpu-time-threshold-ms>
+  </service-profile>
+
+  <service-credential service-credential-id="salescloud.rest.auth.credentials">
+    <!-- Sandbox: https://test.salesforce.com/services/oauth2/token -->
+    <url>https://login.salesforce.com/services/oauth2/token</url>
+    <user>YOUR_CLIENT_ID</user>
+    <password>YOUR_CLIENT_SECRET</password>
+  </service-credential>
+
+  <service-credential service-credential-id="salescloud.rest.api.credentials">
+    <url>https://YOUR_ORG.my.salesforce.com</url>
+    <user></user>
+    <password></password>
+  </service-credential>
+
+</services>
